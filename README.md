@@ -1,3 +1,22 @@
+# Contentful Search Sengrid Dynamic Templates
+
+This Contentful App Framework allows you to search you Sendgrid Dynamic Templates by keywords and extract its
+template id. Allowing you to configure which template id that is configured to send a specific Sendgrid Template.
+
+## App Definition
+
+![App Definition](https://github.com/syl20lego/search-sengrid-templates-app/raw/master/documentation/app_definition.png)
+
+## Application Configuration
+
+![Application Configuration](https://github.com/syl20lego/search-sengrid-templates-app/raw/master/documentation/app_configuration.png)
+
+## Usage
+
+![Usage](https://github.com/syl20lego/search-sengrid-templates-app/raw/master/documentation/search_usage.png)
+
+# Development
+
 This project was bootstrapped with [Create Contentful App](https://github.com/contentful/create-contentful-app).
 
 ## Available Scripts
