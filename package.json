@@ -2,6 +2,7 @@
   "name": "search-sengrid-template-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@contentful/app-sdk": "^3.32.1",
     "@contentful/field-editor-single-line": "^0.13.2",
