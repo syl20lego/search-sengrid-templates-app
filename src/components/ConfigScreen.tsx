@@ -1,39 +1,48 @@
-import React, { Component } from 'react';
-import { AppExtensionSDK } from '@contentful/app-sdk';
-import { Heading, Form, Workbench, Paragraph } from '@contentful/forma-36-react-components';
-import { css } from 'emotion';
+import React, { Component } from "react"
+import { AppExtensionSDK } from "@contentful/app-sdk"
+import {
+  Heading,
+  Form,
+  Workbench,
+  Paragraph,
+  TextField,
+  FieldGroup,
+} from "@contentful/forma-36-react-components"
+import { css } from "emotion"
 
-export interface AppInstallationParameters {}
+export interface AppInstallationParameters {
+  apikey?: any
+}
 
 interface ConfigProps {
-  sdk: AppExtensionSDK;
+  sdk: AppExtensionSDK
 }
 
 interface ConfigState {
-  parameters: AppInstallationParameters;
+  parameters: AppInstallationParameters
 }
 
 export default class Config extends Component<ConfigProps, ConfigState> {
   constructor(props: ConfigProps) {
-    super(props);
-    this.state = { parameters: {} };
+    super(props)
+    this.state = { parameters: { apikey: ''} }
 
     // `onConfigure` allows to configure a callback to be
     // invoked when a user attempts to install the app or update
     // its configuration.
-    props.sdk.app.onConfigure(() => this.onConfigure());
+    props.sdk.app.onConfigure(() => this.onConfigure())
   }
 
   async componentDidMount() {
     // Get current parameters of the app.
     // If the app is not installed yet, `parameters` will be `null`.
-    const parameters: AppInstallationParameters | null = await this.props.sdk.app.getParameters();
+    const parameters: AppInstallationParameters | null = await this.props.sdk.app.getParameters()
 
     this.setState(parameters ? { parameters } : this.state, () => {
       // Once preparation has finished, call `setReady` to hide
       // the loading screen and present the app to a user.
-      this.props.sdk.app.setReady();
-    });
+      this.props.sdk.app.setReady()
+    })
   }
 
   onConfigure = async () => {
@@ -43,7 +52,7 @@ export default class Config extends Component<ConfigProps, ConfigState> {
 
     // Get current the state of EditorInterface and other entities
     // related to this app installation
-    const currentState = await this.props.sdk.app.getCurrentState();
+    const currentState = await this.props.sdk.app.getCurrentState()
 
     return {
       // Parameters to be persisted as the app configuration.
@@ -51,17 +60,42 @@ export default class Config extends Component<ConfigProps, ConfigState> {
       // In case you don't want to submit any update to app
       // locations, you can just pass the currentState as is
       targetState: currentState,
-    };
-  };
+    }
+  }
+
+  handleApiKeyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { parameters } = this.state;
+    console.log(event.target.value)
+    this.setState({ parameters: {
+      ...parameters,
+      apikey: event.target.value
+    }});
+  }
+
 
   render() {
     return (
-      <Workbench className={css({ margin: '80px' })}>
-        <Form>
-          <Heading>App Config</Heading>
-          <Paragraph>Welcome to your contentful app. This is your config page.</Paragraph>
+      <Workbench className={css({ margin: "80px" })}>
+        <Form
+          className={css({ width: "100%" })}
+        >
+          <FieldGroup className={css({ width: "50%" })}>
+            <Heading>App Config</Heading>
+            <Paragraph>
+              Welcome to your contentful app. This is your config page.
+            </Paragraph>
+            <TextField
+              required
+              name="apikey"
+              id="apikey"
+              labelText="Sendgrind API Key"
+              value={this.state.parameters.apikey}
+              onChange={this.handleApiKeyChange}
+              helpText="Provide Sendgrid API Key"
+            />
+          </FieldGroup>
         </Form>
       </Workbench>
-    );
+    )
   }
 }
