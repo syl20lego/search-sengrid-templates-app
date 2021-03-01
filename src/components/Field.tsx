@@ -6,7 +6,7 @@ import {
   Heading,
 } from "@contentful/forma-36-react-components"
 import { FieldExtensionSDK } from "@contentful/app-sdk"
-import { Item, getTemplates } from "./api/sendgrid"
+import { Item, getTemplates } from "../api/sendgrid"
 
 interface FieldProps {
   sdk: FieldExtensionSDK
