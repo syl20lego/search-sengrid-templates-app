@@ -59,6 +59,8 @@ const Field = (props: FieldProps) => {
     [setFilteredItems, templates]
   )
 
+  const name = templates.filter(({ id }) => id === current.id)[0]
+    ?.name
   return (
     <>
       <Autocomplete<Item>
@@ -79,9 +81,9 @@ const Field = (props: FieldProps) => {
         }
       </Autocomplete>
 
-      <Note noteType="positive">
+      <Note noteType={name?"positive":"warning"}>
         <HelpText>
-          {templates.filter(({ id }) => id === sdk.field.getValue())[0]?.name}
+          {name}
         </HelpText>
         <Heading>{current.id}</Heading>
       </Note>
